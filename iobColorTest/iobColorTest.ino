@@ -8,7 +8,7 @@
 
   *** IoB Color test ***
   This skectch tests the Color Sensor TCS3200,
-  and prints in the Serial Monitor the values from red, green and blue color.
+  and prints in the Serial Monitor the values from red, green and blue.
 
   The TCS3200 Color Sensor has light-to-frequency converters,
   the output is a digital wave with frequency proportional to light intensity.
