@@ -65,6 +65,12 @@ int greenMax = 579;    // Update this value with your reading of the black paper
 int blueMin = 40;      // Update this value with your reading of the white paper.
 int blueMax = 448;     // Update this value with your reading of the black paper.
 
+
+String strRed;        // String variable for red hexadecimal color.
+String strGreen;      // String variable for green hexadecimal color.
+String strBlue;       // String variable for blue hexadecimal color.
+String strRGB;        // String variable for RGB hexadecimal color.
+
 void setup()
 {
   Serial.begin(9600); // Begin the serial communication, to print information in the Serial Monitor.
@@ -149,12 +155,30 @@ void loop() {
     and we join them together. And then, it's created an array of char of 8 elements
     (the #RRGGBB color plus a "null terminator" = 8),
     the string with the #RRGGBB is copied to the array of char.
-    //
+
+    Since it's necessary two digits for each color, if the RGB is "0", it's used an if statement to set as "00".
   */
-  String strRed = String(redFiltered, HEX);           // Create a string and convert the red to hexadecimal.
-  String strGreen = String(greenFiltered, HEX);       // Create a string and convert the green to hexadecimal.
-  String strBlue = String(blueFiltered, HEX);         // Create a string and convert the blue to hexadecimal.
+  if (redFiltered == 0) {
+    strRed = "00";    // If it's 0, sets the hexadecimal string as 00.
+  }
+  else {
+    strRed = String(redFiltered, HEX);      // Convert the red to hexadecimal.
+  }
+  if (greenFiltered == 0) {
+    strGreen = "00";  // If it's 0, sets the hexadecimal string as 00.
+  }
+  else {
+    strGreen = String(greenFiltered, HEX);  // Convert the green to hexadecimal.
+  }
+  if (blueFiltered == 0) {
+    strBlue = "00";   // If it's 0, sets the hexadecimal string as 00.
+  }
+  else {
+    strBlue = String(blueFiltered, HEX);    // Convert the blue to hexadecimal.
+  }
+
   String strRGB = "#" + strRed + strGreen + strBlue;  // Create a string and join the RGB with the #.
+
   char charArrayRGB[8]; // Create the character array with 8 elements.
   strRGB.toCharArray(charArrayRGB, 8); // Copy the joined string to the array of char.
   Serial.println(charArrayRGB); // Print the color in the Serial Monitor.
