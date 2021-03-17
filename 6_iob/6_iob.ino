@@ -6,10 +6,10 @@
   https://github.com/Internet-of-Bananas
   Fortaleza / Tampere, 2021.
 
-  *** 5 - IoB Color, temperatura and humidity***
+  *** 5 - IoB Color, temperature and humidity***
   This skectch test the color sensor with the temperature and humidity sensor.
 
-  It's required the libraries:
+  This code requires the libraries:
   EWMA from jonnieZG - https://github.com/jonnieZG/EWMA;
   DHT Sensor Library from Adafruit Industries - https://github.com/adafruit/DHT-sensor-library
   MQTT from Adafruit Industries.
