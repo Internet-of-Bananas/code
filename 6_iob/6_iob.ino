@@ -6,8 +6,8 @@
   https://github.com/Internet-of-Bananas
   Fortaleza / Tampere, 2021.
 
-  *** 5 - IoB Color, temperature and humidity***
-  This skectch test the color sensor with the temperature and humidity sensor.
+  *** 6 - IoB Final colde with full functionality***
+  This code collects the data from the color, temperature, and humidity sensors and send them to Adafruit.
 
   This code requires the libraries:
   EWMA from jonnieZG - https://github.com/jonnieZG/EWMA;
@@ -34,7 +34,7 @@
 #include "Adafruit_MQTT.h"        //  Add the library Adafruit_MQTT.
 #include "Adafruit_MQTT_Client.h" //  Add the library Adafruit_MQTT_Client.
 
-// Before sharing the code, delete the login and password information.
+// IMPORTANT! Before sharing the code, always delete your login and password information.
 // When adding your information, insert it between the "", with no extra space.
 /************************* WiFi Access Point *********************************/
 
@@ -47,11 +47,11 @@
 // https://accounts.adafruit.com/users/sign_up
 
 #define AIO_SERVER      "io.adafruit.com"       //  Address of the MQTT server from Adafruit IO, don't change.
-#define AIO_SERVERPORT  1883                    //  Number of server port from Adafruit IO.
-#define AIO_USERNAME    "username"  //  Adafruit IO user name.
-#define AIO_KEY         "key"    //  Adafruit IO user key.
+#define AIO_SERVERPORT  1883                    //  Number of server port from Adafruit IO, don't change.
+#define AIO_USERNAME    "username"  //  Insert your Adafruit IO user name.
+#define AIO_KEY         "key"    //  Insert your Adafruit IO user key.
 
-/************ Global State (you don't need to change this!) ******************/
+/************ Global State (don't change this!) ******************/
 
 // Create an ESP8266 WiFiClient class to connect to the MQTT server.
 WiFiClient client;
@@ -60,14 +60,14 @@ WiFiClient client;
 Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
 
 /****************************** Feeds ***************************************/
-// Setup the feed for publishing.
+// This setup the feeds for publishing on Adafruit.
 // Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
 Adafruit_MQTT_Publish pubColor = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/color");
 Adafruit_MQTT_Publish pubTemperature = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temperature");
 Adafruit_MQTT_Publish pubHumidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humidity");
 
 // *** Setup parameters for the Color Sensor TCS3200 ***
-// Create the variable to define the pins
+// Create the variable to define which pins you are using in your NodeMCU.
 const int s0 = D6;    // Set the pin S0 on the NodeMCU.
 const int s1 = D7;    // Set the pin S1 on the NodeMCU.
 const int s2 = D3;    // Set the pin S2 on the NodeMCU.
@@ -103,17 +103,18 @@ float humidity;           // Creates the variable to receive the humidity
 
 
 // *** Color calibration***
-// Update the variables below with your reading.
-// Use the sensor in white and black paper to take note of the minimum and maximum values for red, green and blue.
+// This section is used to calibrate your specific color sensor.
+// Update the variables below with readings from your sensor.
+// Use the sensor on a white and then on a black opaque surface and take note of the minimum and maximum values for red, green and blue.
 
-int redMin = 54;       // Update this value with your reading of the white paper.
-int redMax = 552;      // Update this value with your reading of the black paper.
+int redMin = 54;       // Update this value with your red reading of the white paper.
+int redMax = 552;      // Update this value with your red reading of the black paper.
 
-int greenMin = 55;     // Update this value with your reading of the white paper.
-int greenMax = 579;    // Update this value with your reading of the black paper.
+int greenMin = 55;     // Update this value with your green reading of the white paper.
+int greenMax = 579;    // Update this value with your green reading of the black paper.
 
-int blueMin = 40;      // Update this value with your reading of the white paper.
-int blueMax = 448;     // Update this value with your reading of the black paper.
+int blueMin = 40;      // Update this value with your blue reading of the white paper.
+int blueMax = 448;     // Update this value with your blue reading of the black paper.
 
 
 String strRed;        // String variable for red hexadecimal color.
@@ -224,7 +225,7 @@ void loop() {
     In order to visualize the color in the Adafruit IO platform
     it's necessary to convert the color decimal number to the hexadecimal format.
     (The decimal is 0 to 9, and hexadecimal is 0 to F)
-    For that, first we creat a string variables for each RGB values and convert them as hexadecimal,
+    For that, first we create a string of variables for each RGB values and convert them as hexadecimal,
     and we join them together. And then, it's created an array of char of 8 elements
     (the #RRGGBB color plus a "null terminator" = 8),
     the string with the #RRGGBB is copied to the array of char.
@@ -232,19 +233,19 @@ void loop() {
     Since it's necessary two digits for each color, if the RGB is "0", it's used an if statement to set as "00".
   */
   if (redFiltered == 0) {
-    strRed = "00";    // If it's 0, sets the hexadecimal string as 00.
+    strRed = "00";    // If red is 0, sets the hexadecimal string as 00.
   }
   else {
     strRed = String(redFiltered, HEX);      // Convert the red to hexadecimal.
   }
   if (greenFiltered == 0) {
-    strGreen = "00";  // If it's 0, sets the hexadecimal string as 00.
+    strGreen = "00";  // If green is 0, sets the hexadecimal string as 00.
   }
   else {
     strGreen = String(greenFiltered, HEX);  // Convert the green to hexadecimal.
   }
   if (blueFiltered == 0) {
-    strBlue = "00";   // If it's 0, sets the hexadecimal string as 00.
+    strBlue = "00";   // If blue is 0, sets the hexadecimal string as 00.
   }
   else {
     strBlue = String(blueFiltered, HEX);    // Convert the blue to hexadecimal.
@@ -300,7 +301,7 @@ void loop() {
     Serial.println("Ok, data sent!");
   }
 
-  delay(30000); // Pause.
+  delay(30000); // Pause for 30 seconds.
 }
 
 
