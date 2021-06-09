@@ -5,6 +5,7 @@ The **Internet of Bananas** is based on the NodeMCU Esp8266, color sensor TCS320
 
 The code for the project is in the folder **6_iob**. The other sketches are exercices and test of the sensors.
 
+- - - 
 
 ## 1. Update to fix the color conversion
 There is an issue in the code in the color conversion from decimal to hexadecimal. The hexadecimal color has to have the # symbol plus six digits, otherwise the color will be displayed black. The problem happens when the **decimal** value is less than 16, resulting in a **hexadecimal** value with less than six digits. 
