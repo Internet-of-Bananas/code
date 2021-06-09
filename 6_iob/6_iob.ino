@@ -232,24 +232,28 @@ void loop() {
 
     Since it's necessary two digits for each color, if the RGB is "0", it's used an if statement to set as "00".
   */
-  if (redFiltered == 0) {
-    strRed = "00";    // If red is 0, sets the hexadecimal string as 00.
+  
+  strRed = String(redFiltered, HEX);      // Convert the red to hexadecimal.
+  strGreen = String(greenFiltered, HEX);  // Convert the green to hexadecimal.
+  strBlue = String(blueFiltered, HEX);    // Convert the blue to hexadecimal.
+
+
+  if (strRed.length() == 1) {
+    strRed = "0" + strRed; // If strRed has only one character, adds a "0" in the beggining of the string.
   }
   else {
-    strRed = String(redFiltered, HEX);      // Convert the red to hexadecimal.
   }
-  if (greenFiltered == 0) {
-    strGreen = "00";  // If green is 0, sets the hexadecimal string as 00.
-  }
-  else {
-    strGreen = String(greenFiltered, HEX);  // Convert the green to hexadecimal.
-  }
-  if (blueFiltered == 0) {
-    strBlue = "00";   // If blue is 0, sets the hexadecimal string as 00.
+  if (strGreen.length() == 1) {
+    strGreen = "0" + strGreen; // If strGreen has only one character, adds a "0" in the beggining of the string.
   }
   else {
-    strBlue = String(blueFiltered, HEX);    // Convert the blue to hexadecimal.
   }
+  if (strBlue.length() == 1) {
+    strBlue = "0" + strBlue;   // If strBlue has only one character, adds a "0" in the beggining of the string.
+  }
+  else {
+  }
+  
 
   String strRGB = "#" + strRed + strGreen + strBlue;  // Create a string and join the RGB with the #.
 
