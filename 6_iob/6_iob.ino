@@ -230,7 +230,8 @@ void loop() {
     (the #RRGGBB color plus a "null terminator" = 8),
     the string with the #RRGGBB is copied to the array of char.
 
-    Since it's necessary two digits for each color, if the RGB is "0", it's used an if statement to set as "00".
+    Since it's necessary two digits for each color, if the decimal value is less than "16", 
+    it's used an if statement to add a "0", making it a two digits value.
   */
   
   strRed = String(redFiltered, HEX);      // Convert the red to hexadecimal.
