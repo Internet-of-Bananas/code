@@ -12,7 +12,7 @@ There is an issue in the code in the color conversion from decimal to hexadecima
 
 For example, the decimal RGB color `201, 94, 13` should be converted as `c9 5e 0d` in the hexadecimal format, but in the IoB code it's converted as `c9 5e d`, the "0" is omitted in the conversion, thus the final number has only 5 digits. To guarantee that the hexadecimal color has always 6 digits, we created an `if` statement that will verify the number and do the correction when it's necessary.
 
-To fix this bug, in the Arduino IDE open the file `6_iob` (if you saved it with another name, open it. Just to remind you, this file should already have your wifi network and password, Adafruit IO user name and key, and the color calibration p ameters). Locate the following code shown bellow:
+To fix this bug, in the Arduino IDE open the file `6_iob` (if you saved it with another name, open it. Just to remind you, this file should already have your wifi network and password, Adafruit IO user name and key, and the color calibration parameters). Locate the following code shown bellow:
 
 ``` 
   /*
