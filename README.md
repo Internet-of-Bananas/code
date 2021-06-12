@@ -5,6 +5,8 @@ The **Internet of Bananas** is based on the NodeMCU Esp8266, color sensor TCS320
 
 The code for the project is in the folder **6_iob**. The other sketches are exercices and test of the sensors.
 
+The [Processing](https://processing.org/) sketch to visualize the color palettes of the IoB stations is in the folder **IoB_colorGraph**.
+
 - - - 
 
 ## 1. Update to fix the color conversion
